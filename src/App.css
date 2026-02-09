@@ -1,0 +1,32 @@
+body {
+  width:100vw;
+  margin:0 auto;
+  padding: 16px 32px;
+}
+
+section ul {
+  padding: 0;
+  display: grid;
+  grid-gap: 16px;
+  list-style: none;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+form * {
+  margin-right: 16px;
+}
+
+input, button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgb(160, 160, 160);
+}
+
+.search-meta {
+  color: rgba(255, 255, 255, 0.5)
+}
