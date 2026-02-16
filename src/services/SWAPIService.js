@@ -14,16 +14,13 @@ export async function indexStarships() {
 
 export async function search(query, options) {
     try {
-        console.log("@searchSVC:", query, options);
         const response = await fetch(BASE_URL+'/search?q='+query, {
             method:'POST',
             headers:{"Content-Type": "application/json"},
             body:JSON.stringify({options})
         });
         if (!response.ok) throw new Error("Fetch /search Failed.");
-        console.log("@searchSVC response-pre-data:", response);
         const data = await response.json();
-        console.log("@searchSVC response:", data);
         return data;
     } catch (err) {
         console.error(err)

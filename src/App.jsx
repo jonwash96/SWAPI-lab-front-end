@@ -9,6 +9,8 @@ function App() {
     const [results, setResults] = useState([]);
     const [searchInput, setSearchInput] = useState('');
     const [handleSearch, setHandleSearch] = useState(null);
+    const [prevSearch, setPrevSearch] = useState('');
+    const [showExpanded, setShowExpanded] = useState(false);
 
     useEffect(() => { console.log("@App. Fetching. . .")
         const fetchData = async () => {
@@ -16,32 +18,30 @@ function App() {
             if (!retrievedData) {
                 console.error(retrievedData.err || "fetchData Failed @App")
             };
-            console.log("@App > fetchData:", retrievedData);
             setShips(retrievedData);
         }; fetchData();
     },[]);
 
     useEffect(() => {
-        console.log("@App > useEffect. handleSearch:", handleSearch)
         if (!handleSearch) return;
         const performSearch = async () => {
-            console.log("@App > performSearch:", handleSearch[0])
+            setResults([{loading:'Loading. . .'}])
             const retrievedData = await SWAPI.search(handleSearch[0], handleSearch[1]);
             if (!retrievedData || retrievedData.err) {
                 console.error(retrievedData.err || "fetchData Failed @App")
             };
             console.log("@App > performSearch:", retrievedData);
             setResults(retrievedData);
-            // setHandleSearch(null);
+            setHandleSearch(null);
         }; performSearch();
     },[handleSearch]);
 
-    const reset = () => setResults([]);
+    const resetShips = () => {setResults(ships); setPrevSearch('')};
 
 	return (
 		<main>
-            <Searchbar props={{ships, setShips, setResults, searchInput, setSearchInput, setHandleSearch}} />
-            <ResultsList results={results} filter={searchInput} index={{ships, reset}} search={{query:handleSearch, set:setHandleSearch}} />
+            <Searchbar props={{ resetShips, searchInput, setSearchInput, setHandleSearch, setPrevSearch, showExpanded, setShowExpanded }} />
+            <ResultsList props={{ results, searchInput, ships, prevSearch, setPrevSearch, showExpanded, setShowExpanded }} />
 		</main>
 	)
 }

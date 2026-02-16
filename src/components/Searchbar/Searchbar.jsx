@@ -1,29 +1,31 @@
-import { useState, useEffect } from 'react'
-import * as SWAPI from '../../services/SWAPIService'
+import './Searchbar.css'
 
 export default function Searchbar({props}) {
-    const handleChange = (e) => props.setSearchInput(e.target.value);
+    const {resetShips, searchInput, setSearchInput, setHandleSearch, setPrevSearch, showExpanded, setShowExpanded } = props
+    const handleChange = (e) => setSearchInput(e.target.value);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("@handleSubmit searchInput:", props.searchInput)
-        props.setHandleSearch([props.searchInput, {block:1}]);
-        props.setSearchInput('');
+        console.log("@handleSubmit searchInput:", searchInput);
+        if (searchInput.length === 0) return;
+        setHandleSearch([searchInput, {block:1}]);
+        setPrevSearch(searchInput);
+        setSearchInput('');
     };
 
     return(
         <div id="Searchbar">
-            <span>SWAPI Search</span>
+            <span>S.W.A.P.I.</span>
 
             <form id="searchbox" onSubmit={handleSubmit}>
-                <input type="search" value={props.searchInput} onChange={handleChange} />
+                <input type="search" value={searchInput} onChange={handleChange} placeholder="Search" />
                 <button type="submit" className="search-btn">🔎</button>
             </form>
 
             <nav>
                 <ul>
-                    {/* <li onClick={()=>props.setPageName('Everything')}>Home</li> */}
-                    <li onClick={()=>props.setPageName('Starships')}>Starships</li>
+                    <button type="button" onClick={resetShips}>Starships</button>
+                    <button type="button" onClick={()=>setShowExpanded(!showExpanded)}>{showExpanded ? "Hide Extra Details" : "Show Extra Details"}</button>
                 </ul>
             </nav>
         </div>
