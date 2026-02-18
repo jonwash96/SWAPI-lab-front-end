@@ -19,14 +19,16 @@ export default function ResultsList({props}) {
 
     return(
         <section id="results-list">
-            
+
                 <div id="search-metadata">
                     <span>Showing {data.length} results</span>
-                    {checkPrev 
+                    {checkPrev
                         ? <span> for: &ldquo;{prevSearch}&rdquo;</span>
                         : <span>. Type to filter by name, or press search for expanded results.</span>}
-                    {checkPrev && <button onClick={resetIndex} style={{marginLeft:'1em'}}>Show All Ships</button>}
-                    {checkPrev && <span>Please Note. Results may include fields not shown.</span>}
+                    {checkPrev && <button onClick={resetIndex} style={{margin:'0 1em', padding:'0 25px'}}>Show All Ships</button>}
+                    {checkPrev && !showExpanded &&
+                      <p style={{opacity:'.4', fontSize: '10pt'}}> Note: Results may match hidden fields. Use "Show Extra Details" for more.</p>
+                    }
                 </div>
             <ul>
                 {searchInput.length > 0 && data.length===0 && <p>Press Enter to see more results.</p>}
