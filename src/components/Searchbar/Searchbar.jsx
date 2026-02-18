@@ -15,7 +15,7 @@ export default function Searchbar({props}) {
 
     return(
         <div id="Searchbar">
-            <span>S.W.A.P.I.</span>
+            <span>S.W.A.P.I. Search</span>
 
             <form id="searchbox" onSubmit={handleSubmit}>
                 <input type="search" value={searchInput} onChange={handleChange} placeholder="Search" />
